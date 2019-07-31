@@ -27,16 +27,20 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+// handling static folders and files 
+app.use('/upload', express.static('upload'));
+
+
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
 
 // HANDLING CORS ERRORS
 // CROSS ORIGIN RESOURCE SHARING 
 app.use((req, res, next) =>{
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', '*'); // the * allows all site to access the
     res.header(
         'Access-Control-Allow-Headers', 
-    'Origin X-Requested-With, Content-Type, Accept, Authorization'
+        'Origin X-Requested-With, Content-Type, Accept, Authorization'
     );
     if(req.method === 'OPTIONS'){
         res.header('Access-Control-Allow-Methods', 'PUT, POST, PATHCH, DELETE, GET');

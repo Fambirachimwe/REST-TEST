@@ -1,38 +1,116 @@
 const express = require('express');
 const router = express.Router();
+const Order = require('../models/order');
+const mongoose = require('mongoose');
 
 
 router.get('/', (req, res, next) =>{
-    res.status(200).json({
-        message: 'get all the orders'
+    Order.find()
+    .select('quantity productId')
+    .populate('productId', 'name')
+    .exec()
+    .then(result =>{
+        // console.log(result);
+        if(result.length > 0 ){
+            res.status(200).json(result);
+        }else{
+            res.status(200).json({
+                message: 'No Orders found',
+            });
+        }
+        
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({error: err})
     });
 });
 
 router.post('/', (req, res, next) =>{
-    const order = {
+    const order = new Order({
+        _id: mongoose.Types.ObjectId(),
+        quantity: req.body.quantity,
         productId: req.body.productId,
-        quantity: req.body.quantity
-    }
-    res.status(200).json({
-        message: 'post all the orders',
-        orders: order,
-    });
+    }).save()
+    .then(result =>{
+        res.status(200).json({
+            message: 'order created',
+            orders: {
+                quantity : result.quantity,
+                request: {
+                    type: 'GET',
+                    url: 'http://127.0.0.1:3000/products/' + result.productId,
+                }
+            }
+        });
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({error: err})
+    });  
 });
 
 
 router.get('/:orderId', (req, res, next) =>{
     const id = req.params.orderId;
-    res.status(200).json({
-        message: 'get the orderId with the order: ', id,
+    Order.findById(id)
+    .populate('productId')
+    .exec()
+    .then(result =>{
+        if(result){
+            res.status(200).json({
+                productId: result._id,
+                quantity: result.quantity,
+                request: {
+                    message: 'Product infomation',
+                    url: 'http://127.0.0.1:3000/products/' + result.productId._id
+                }
+            });
+        }else{
+            res.status(404).json({
+                message: 'Order with id of ' + id + ' is not Found'
+            })
+        }
+        
+        
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({error: err})
     });
 });
 
 router.delete('/:orderId', (req, res, next) =>{
     const id = req.params.orderId;
-    res.status(200).json({
-        message: 'the oder with the id of' +' '+ id + ' has been removed',
+    Order.findOneAndRemove({_id: id})
+    .exec()
+    .then(result =>{
+        if(result){
+            res.status(200).json({
+                message: id + ' deleted',
+                request: {
+                    type: 'POST',
+                    message: 'Place an order',
+                    OrderUrl: 'http://127.0.0.1:3000/order/'
+                }
+            })
+        }else{
+            res.status(404).json({
+                message: 'unable to delete the order with the id ' + id,
+                request: {
+                    type: 'GET',
+                    message: 'Get all the orders',
+                    url: 'http://127.0.0.1:3000/orders',
 
+                }
+            })
+        }
+        
     })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({error: err})
+    });
 });
 
 module.exports = router;
