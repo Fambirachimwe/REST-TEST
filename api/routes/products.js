@@ -71,7 +71,7 @@ router.post('/', upload.single('productImage'), (req, res, next) =>{
                 name: result.name,
                 price: result.price,
                 _id: result._id,
-                productImage: result.productImage,
+                productImage:'http://127.0.0.1:3000/'+ result.productImage,
                 request: {
                     type: 'GET',
                     url: 'http://127.0.0.1:3000/products/' + result._id

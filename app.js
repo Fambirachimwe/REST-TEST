@@ -3,6 +3,7 @@ const app =  express();
 const morgan = require('morgan');
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('../REST-TEST/api/routes/orders');
+const userRoutes = require('../REST-TEST/api/routes/user');
 const bodyParser = require('body-parser');
 const mongoose =  require('mongoose');
 
@@ -18,11 +19,6 @@ mongoose.connection.once('open', () =>{
     console.log('connection error ', error);
 });
 
-
-
-
-
-
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -33,6 +29,7 @@ app.use('/upload', express.static('upload'));
 
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
+app.use('/user', userRoutes);
 
 // HANDLING CORS ERRORS
 // CROSS ORIGIN RESOURCE SHARING 
