@@ -3,6 +3,8 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
+const  jwt = require('jsonwebtoken');
+const env = require('../env')
 
 // install the node bcrypt hashing algorithm 
 router.post('/signup', (req, res, next) =>{
@@ -53,8 +55,12 @@ router.post('/login', (req, res, next) =>{
         } else {
             bcrypt.compare(req.body.password, user[0].password, function(err, response) {
                 if(response){
+                    const token = jwt.sign({email: user[0].email,userId: user[0]._id}, 
+                        env.JWT_KEY, {expiresIn: "1h"}, 
+                    );
                     return res.status(200).json({
-                        message: 'user logged in '
+                        message: 'user logged in ',
+                        token: token
                     });
                 } else{
                     return res.status(401).json({
