@@ -12,7 +12,9 @@ const mongoose =  require('mongoose');
 
 // connection to mongodb
 
-mongoose.connect('mongodb://localhost/REST-API', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://tatenda:trizydeboi1234@rest-api-oel0z.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
+
+
 mongoose.connection.once('open', () =>{
     console.log('connected');
 }).on('error', (error) =>{
