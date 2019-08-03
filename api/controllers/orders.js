@@ -18,7 +18,7 @@ exports.getAllOrders = (req, res, next) =>{
         
     })
     .catch(err =>{
-        console.log(err);
+        // console.log(err);
         res.status(500).json({error: err})
     });
 }
@@ -42,7 +42,7 @@ exports.placeOrder = (req, res, next) =>{
         });
     })
     .catch(err =>{
-        console.log(err);
+        // console.log(err);
         res.status(500).json({error: err})
     });  
 }
@@ -71,7 +71,7 @@ exports.orderDetail = (req, res, next) =>{
         
     })
     .catch(err =>{
-        console.log(err);
+        // console.log(err);
         res.status(500).json({error: err})
     });
 }
@@ -104,7 +104,7 @@ exports.deleteOrder = (req, res, next) =>{
         
     })
     .catch(err =>{
-        console.log(err);
+        // console.log(err);
         res.status(500).json({error: err})
     });
 }

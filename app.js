@@ -2,8 +2,8 @@ const express = require('express');
 const app =  express();
 const morgan = require('morgan');
 const productRoutes = require('./api/routes/products');
-const orderRoutes = require('../REST-TEST/api/routes/orders');
-const userRoutes = require('../REST-TEST/api/routes/user');
+const orderRoutes = require('./api/routes/orders');
+const userRoutes = require('./api/routes/user');
 const bodyParser = require('body-parser');
 const mongoose =  require('mongoose');
 

@@ -25,7 +25,7 @@ exports.getProducts = (req, res, next) =>{
         res.status(200).json(response);
     })
     .catch(err =>{
-        console.log(err);
+        // console.log(err);
         res.status(500).json({error: err})
     });
 }
@@ -38,7 +38,7 @@ exports.createProduct = (req, res, next) =>{
         productImage: req.file.path
     });
     product.save().then(result =>{
-        console.log(result);
+        // console.log(result);
         res.status(200).json({
             message: 'created product sucessfully',
             createdProduct: {
@@ -53,7 +53,7 @@ exports.createProduct = (req, res, next) =>{
             }
         });
     }).catch(err =>{
-        console.log(err);
+        // console.log(err);
         res.status(500).json({error: err})
     });
     
@@ -86,7 +86,7 @@ exports.productDetail = (req, res, next) =>{
         
     })
     .catch(err =>{
-        console.log(err);
+        // console.log(err);
         res.status(500).json({error: err})
     });
     
@@ -101,7 +101,7 @@ exports.updateProduct = (req, res, next) =>{
     Product.update({_id: id}, {$set: updatesOps})
         .exec()
         .then(result =>{
-            console.log(result);
+            // console.log(result);
             res.status(200).json({
                 message: 'updated sucessfully',
                 request: {
@@ -112,7 +112,7 @@ exports.updateProduct = (req, res, next) =>{
             });
         })
         .catch(err =>{
-            console.log(err);
+            // console.log(err);
             res.status(500).json({error: err})
         });
 }
@@ -122,7 +122,7 @@ exports.deleteProduct = (req, res, next) =>{
     Product.findOneAndRemove({_id: id})
     .exec()
     .then(result =>{
-        console.log(result);
+        // console.log(result);
         res.status(200).json({
             message: id + ' deleted',
             request: {
@@ -133,7 +133,7 @@ exports.deleteProduct = (req, res, next) =>{
         })
     })
     .catch(err =>{
-        console.log(err);
+        // console.log(err);
         res.status(500).json({error: err})
     });
 }

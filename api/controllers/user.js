@@ -26,13 +26,13 @@ exports.SignUp = (req, res, next) =>{
                         password: hash
                         }).save()
                         .then(result =>{
-                            console.log(result);
+                            // console.log(result);
                             res.status(201).json({
                                 message: 'new user created'
                             })
                         })
                         .catch(err =>{
-                            console.log(err);
+                            // console.log(err);
                             res.status(500).json({error: err})
                         });
                     }
@@ -68,7 +68,7 @@ exports.Login = (req, res, next) =>{
         }
     })
     .catch(err =>{
-        console.log(err);
+        // console.log(err);
         res.status(500).json({error: err})
     });
 }
@@ -89,7 +89,7 @@ exports.DeleteUser = (req, res, next) =>{
         }
     })
     .catch(err =>{
-        console.log(err);
+        // console.log(err);
         res.status(500).json({error: err})
     });
 
