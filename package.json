@@ -16,8 +16,18 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "tatenda fambirachimwe",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fambirachimwe/REST-TEST.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Fambirachimwe/REST-TEST/issues"
+  },
+  "homepage": "https://github.com/Fambirachimwe/REST-TEST#readme"
 }
